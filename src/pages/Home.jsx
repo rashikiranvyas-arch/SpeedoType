@@ -57,6 +57,9 @@ function Home(props)
             }
         }
     }
+    let progress = question.length > 0
+    ? Math.min(Math.round((answer.length / question.length) * 100), 100)
+    : 0;
 
     let questionbox = [
         "I have 2 apples and 3 oranges, which means I can make a delicious fruit salad.",
@@ -75,6 +78,26 @@ function Home(props)
             
             >{[...question].map((ele,i)=>{ return <span className={ele===answer[i]?"correct":answer[i]?"wrong":""}>{ele}</span>})}
     </p>
+            <div className="progress-section">
+    <div className="progress-info">
+        <span>Typing Progress</span>
+        <span>{progress}%</span>
+    </div>
+
+    <div
+        className="progress-track"
+        role="progressbar"
+        aria-label="Typing progress"
+        aria-valuemin={0}
+        aria-valuemax={100}
+        aria-valuenow={progress}
+    >
+        <div
+            className="progress-fill"
+            style={{ width: `${progress}%` }}
+        ></div>
+    </div>
+</div>
             <textarea className="answer" placeholder="Start typing here..."
             onChange={handleChange}
             value={answer}
